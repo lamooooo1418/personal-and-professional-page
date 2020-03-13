@@ -12,6 +12,8 @@ chai.use(chaiHttp)
 
 const user = {
   credentials: {
+    firstName: 'Mohammed',
+    lastName: 'AlMuhanna',
     email: 'foo@bar.baz',
     password: '12345',
     password_confirmation: '12345'
@@ -27,6 +29,8 @@ const updatedUser = {
 
 const nonMatchingPasswordsUser = {
   credentials: {
+    firstName: 'Hamad',
+    lastName: 'AlMuhanna',
     email: 'dont@type.good',
     password: '12345',
     password_confirmation: '54321'
@@ -58,6 +62,18 @@ describe('Users', () => {
   })
 
   describe('POST /sign-up', () => {
+    it('should reject an empty string name', done => {
+      chai.request(server)
+        .post('/sign-up')
+        .send(Object.assign({}, user.credentials, { firstName: '', lastName: '' }))
+        .end((e, res) => {
+          res.should.have.status(422)
+          res.should.be.a('object')
+          res.body.should.have.property('name')
+          done()
+        })
+    })
+
     it('should reject users with duplicate emails', done => {
       chai.request(server)
         .post('/sign-up')
