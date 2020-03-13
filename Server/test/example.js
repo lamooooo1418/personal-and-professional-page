@@ -1,7 +1,7 @@
 process.env.TESTENV = true
 
 let Example = require('../app/models/example.js')
-let User = require('../app/models/user')
+let User = require('../app/models/user.model')
 
 const crypto = require('crypto')
 
@@ -33,7 +33,7 @@ describe('Examples', () => {
         userId = user._id
         return user
       })
-      .then(() => Example.create(Object.assign(exampleParams, {owner: userId})))
+      .then(() => Example.create(Object.assign(exampleParams, { owner: userId })))
       .then(record => {
         exampleId = record._id
         done()
