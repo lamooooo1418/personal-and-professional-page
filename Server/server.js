@@ -2,10 +2,10 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
-const cors=require('cors')
+const cors = require("cors");
 //import Router
-const indexRouter = require("./app/routes/index");
-const UserRouter = require("./app/routes/users");
+const indexRouter = require("./App/Routers/index");
+const UserRouter = require("./App/Routers/Users");
 //Require DB
 
 const db = require("./config/db");
@@ -14,7 +14,7 @@ const db = require("./config/db");
 
 mongoose.connect(db, { useNewParser: true });
 mongoose.connection.once("open", () => {
-  console.log("Connected to mongoose");
+  console.log("Connected to mongoose heyy");
 });
 
 const app = express();
@@ -22,14 +22,14 @@ const app = express();
 //Define the port for the api
 
 const port = process.env.Port || 5000;
-const reactPort =3000
-
-
+const reactPort = 3000;
 
 //app.use(expres.json());
 
 //SetCors
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPort}` }))
+app.use(
+  cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPort}` })
+);
 
 //** MiddleWear*/
 //Add `body Prser `
@@ -42,7 +42,7 @@ app.use(express.json());
  *
  */
 app.use(indexRouter);
-app.use(UserRouterRouter);
+app.use(UserRouter);
 //Start the ser
 
 app.listen(port, () => {
