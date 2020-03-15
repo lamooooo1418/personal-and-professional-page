@@ -3,107 +3,73 @@ class Edit extends Component {
   constructor() {
     super();
     this.state = {
-      User: ""
+      FirstName: this.props.firstName,
+      lName: this.props.lastName,
+      Email: this.props.email
     };
   }
-  editfName = () => {
-    let copyofInformation = this.state.information;
-    var editText = prompt(
-      "TO EDIT YOUR TEXT: ",
-      copyofInformation[0].firstName
-    );
-    // if the user didnt click on cancel or didnt insert empty value
-    if (editText !== null && editText !== "") {
-      // take this text and put it in the name of this object in the copy array
-      copyofInformation[0].firstName = editText;
-      // change the trips that in the stete with the copy array
+  editUser = event => {
+    event.preventDefault();
+    const User = {
+      First: this.props.firstName,
+      lName: this.props.lastName,
+
+      Email: this.props.email
+    };
+    this.close();
+  };
+  handleChangeBox = event => {
+    const input = event.target;
+
+    if (input.className === "FirstName") {
       this.setState({
-        information: copyofInformation
+        FirstName: input.value
+      });
+    } else if (input.className === "lastName") {
+      this.setState({
+        lName: input.value
+      });
+    } else {
+      this.setState({
+        Email: input.value
       });
     }
+    this.props.editUser(this.props.id, user);
   };
-  editlName = () => {
-    let copyofInformation = this.props.lastName;
-    var editText = prompt("TO EDIT YOUR TEXT: ", copyofInformation[0].lastName);
-    // if the user didnt click on cancel or didnt insert empty value
-    if (editText !== null && editText !== "") {
-      // take this text and put it in the name of this object in the copy array
-      copyofInformation[0].lastName = editText;
-      // change the trips that in the stete with the copy array
-      this.setState({
-        information: copyofInformation
-      });
-    }
+
+  close = () => {
+    this.props.close();
   };
-  editMail = index => {
-    let copyofInformation = this.props.children;
-    var editText = prompt(
-      "TO EDIT YOUR TEXT: ",
-      copyofInformation[index].email
-    );
-    // if the user didnt click on cancel or didnt insert empty value
-    if (editText !== null && editText !== "") {
-      // take this text and put it in the name of this object in the copy array
-      copyofInformation[0].email = editText;
-      // change the trips that in the stete with the copy array
-      this.setState({
-        information: copyofInformation
-      });
-    }
-  };
+
   render() {
     return (
       <div>
+        <h4>Edit User</h4>
+        <label> Name: </label>
+        <input
+          className="FirstName"
+          onChange={this.handleChangeBox}
+          value={this.state.FirstName}
+        />
+        <label>Last Name:</label>
+        <input
+          className="lastName"
+          onChange={this.handleChangeBox}
+          value={this.state.lastName}
+        />
+        <label>Email:</label>
         <br />
-        <h3>Edit information</h3>
-        <label htmlFor="name">firstName1</label>
-        <div className="input-field">
-          <input
-            type="text"
-            name="fname"
-            value={this.state.information.firstName}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="name">firstName</label>
-        </div>
-        <div className="input-field">
-          <input
-            type="text"
-            name="lName"
-            value={this.state.information.lastName}
-          />
-          <label htmlFor="LastName">LastName</label>
-        </div>
-        <div className="input-field">
-          <input
-            type="text"
-            name="address"
-            value={this.state.information.email}
-          />
-          <label htmlFor="mail">Email</label>
-        </div>
-        <input type="submit" value="Save" className="btn" />
+        <input
+          className="Email"
+          onChange={this.handleChangeBox}
+          value={this.state.Email}
+        />
+        <button style={{ display: "inline" }} onClick={this.close}>
+          Cancel
+        </button>
+        <button onClick={this.editUser}>Confirm</button>
       </div>
     );
-    // return (
-    //   <div>
-    //     <body className=“body'>
-    //       <p>
-    //         {' “}
-    //         FirstName:{this.props.firstName}
-    //         <button onClick={this.editfName}>Edit Name</button>
-    //       </p>
-    //       <p>
-    //         editlName LastName: {this.props.lastName}
-    //         <button onClick={this.editlName}>Edit 1Name</button>
-    //       </p>
-    //       <p>
-    //         Email: {this.props.email}
-    //         <button onClick={this.editlName}>Edit Msil</button>
-    //       </p>
-    //     </body>
-    //   </div>
-    // );
   }
 }
 export default Edit;
