@@ -14,7 +14,7 @@ const UserRouter = require("./App/Routers/Users");
 //Require DB
 =======
 // require route files
-const exampleRoutes = require('./app/routes/example_routes')
+const resumeRoutes = require('./app/routes/resume.routes')
 const userRoutes = require('./app/routes/user.routes')
 >>>>>>> master
 
@@ -92,7 +92,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(requestLogger)
 
 // register route files
-app.use(exampleRoutes)
+app.use(resumeRoutes)
 app.use(userRoutes)
 
 <<<<<<< HEAD
