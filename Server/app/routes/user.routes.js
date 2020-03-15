@@ -145,8 +145,6 @@ router.delete("/sign-out", requireToken, (req, res, next) => {
     .catch(next);
 });
 
-module.exports = router;
-
 router.patch("/api/Users/:id", (req, res) => {
   user
     .findById(req.params.id)
@@ -183,3 +181,5 @@ router.get("/Users", (req, res) => {
       res.status(500).json({ error: error });
     });
 });
+
+module.exports = router;
